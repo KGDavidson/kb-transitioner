@@ -1,12 +1,5 @@
 import { useState } from 'react'
-
-enum KBLayout {
-  QWERTY = "qwertyuiopasdfghjkl;zxcvbnm,./",
-  AZERTY = "azertyuiopqsdfghjklmwxcvbn,;:!",
-  DVORAK = "',.pyfgcrlaoeuidhtns;qjkxbmwvz",
-  COLEMAK = "qwfpgjluy;arstdhneiozxcvbkm,./",
-  WORKMAN = "qdrwbjfup;ashtgyneoizxmcvkl,./"
-}
+import { KBLayout } from './enums/KBLayout'
 
 function App() {
   const [sourceLayout, setSourceLayout] = useState<KBLayout | null>(null)
