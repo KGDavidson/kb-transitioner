@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { KBLayout } from './enums/KBLayout'
+import { KBLayout, KBLayoutType } from './enums/KBLayout'
 
 function App() {
-  const [sourceLayout, setSourceLayout] = useState<KBLayout | null>(null)
-  const [targetLayout, setTargetLayout] = useState<KBLayout | null>(null)
+  const [sourceLayout, setSourceLayout] = useState<KBLayoutType>(KBLayout.QWERTY)
+  const [targetLayout, setTargetLayout] = useState<KBLayoutType>(KBLayout.WORKMAN)
   
   return (
     <>
