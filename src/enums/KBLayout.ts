@@ -4,4 +4,6 @@ export enum KBLayout {
     COLEMAK = "qwfpgjluy;arstdhneiozxcvbkm,./",
     WORKMAN = "qdrwbjfup;ashtgyneoizxmcvkl,./"
   }
+
+export type KBLayoutType = KBLayout | null
   
