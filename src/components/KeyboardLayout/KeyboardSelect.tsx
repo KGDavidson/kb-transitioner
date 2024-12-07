@@ -9,11 +9,14 @@ type Props = {
 export const KeyboardSelect = (props: Props) => {
   const { setLayout } = props;
 
-  const options = Object.entries(KBLayout).map((keyValue) => {
-    return { value: keyValue[1], label: keyValue[0] };
-  });
-
-  const Exoptions = useMemo(() => options, [KBLayout]);
+  const options = useMemo(
+    () =>
+      Object.entries(KBLayout).map((keyValue) => ({
+        value: keyValue[1],
+        label: keyValue[0],
+      })),
+    []
+  );
 
   return (
     <Select
@@ -23,8 +26,8 @@ export const KeyboardSelect = (props: Props) => {
         menu: () => "!bg-zinc-700 !text-zinc-400",
         option: () => "hover:!bg-zinc-600 !bg-transparent",
       }}
-      options={Exoptions}
-      defaultValue={Exoptions[0]}
+      options={options}
+      defaultValue={options[0]}
       onChange={(choice) => {
         setLayout(choice?.value as KBLayout);
       }}
