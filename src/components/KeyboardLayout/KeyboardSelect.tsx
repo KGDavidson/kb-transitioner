@@ -21,8 +21,7 @@ export const KeyboardSelect = (props: Props) => {
         control: () => "!bg-zinc-700 !border-zinc-700 !shadow-none",
         singleValue: () => "!text-zinc-400",
         menu: () => "!bg-zinc-700 !text-zinc-400",
-        option: () =>
-          "hover:!bg-zinc-600 !bg-transparent active:!bg-zinc-600 after:!bg-zinc-600",
+        option: () => "hover:!bg-zinc-600 !bg-transparent",
       }}
       options={Exoptions}
       defaultValue={Exoptions[0]}
