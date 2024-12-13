@@ -1,37 +1,29 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Character from "./Character";
 
 type Props = {
   sentence: String;
+  userInput: String;
+  setUserInput: Dispatch<SetStateAction<string>>;
 };
 
 function TypingBox(props: Props) {
-  const { sentence } = props;
-
-  const [userInput, setUserInput] = useState("");
+  const { sentence, userInput, setUserInput } = props;
 
   function handleKeyDown(event: { key: string }) {
+    console.log(event.key);
     if (event.key == "Backspace") {
       setUserInput((userInput) => {
-        console.log;
-        return userInput[-1];
+        return userInput.slice(0, -1);
       });
+    } else if (event.key == "Shift") {
+      console.log(event.key);
     }
-    setUserInput((userInput) => {
-      console.log;
-      return userInput + event.key;
-    });
-  }
-
-  function getValid(index: number, char: string) {
-    console.log("updating valid");
-    try {
-      if (userInput[index]) {
-        return userInput[index] == char ? true : false;
-      }
-      return null;
-    } catch {
-      return null;
+    //else if (/^[A-Z]$/i.test(event.key) || event.key == " ")
+    else {
+      setUserInput((userInput) => {
+        return userInput + event.key;
+      });
     }
   }
 
@@ -43,7 +35,7 @@ function TypingBox(props: Props) {
     >
       {sentence
         ? sentence.split("").map((char, index) => {
-            return <Character char={char} valid={getValid(index, char)} />;
+            return <Character char={char} userInputChar={userInput[index]} />;
           })
         : null}
     </div>

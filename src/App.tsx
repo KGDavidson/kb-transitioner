@@ -15,17 +15,24 @@ function App() {
 
   const [sentence, setSentence] = useState<String>("");
 
-  const getSentence = async () => {
+  const [userInput, setUserInput] = useState("");
+
+  const restart = async () => {
     let x = await GenerateSentence();
     setSentence(x);
+    setUserInput("");
   };
 
   return (
     <div className="bg-zinc-900 h-screen w-screen p-8">
       <KeyboardSelect setLayout={setSourceLayout} />
       <KeyboardLayout layout={sourceLayout} />
-      <TypingBox sentence={sentence} />
-      <button onClick={getSentence}>Restart Test</button>
+      <TypingBox
+        sentence={sentence}
+        userInput={userInput}
+        setUserInput={setUserInput}
+      />
+      <button onClick={restart}>Restart Test</button>
     </div>
   );
 }

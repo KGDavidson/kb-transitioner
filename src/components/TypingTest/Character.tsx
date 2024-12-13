@@ -1,9 +1,11 @@
 type Props = {
-  char: string | null;
-  valid: boolean | null;
+  char: string;
+  userInputChar: string | null;
 };
 
-function Character({ char, valid }: Props) {
+function Character({ char, userInputChar }: Props) {
+  const valid = userInputChar ? userInputChar === char : null;
+
   if (valid == null) {
     return (
       <span className="m-0.5 text-zinc-400 text-center focus:blur-sm">
