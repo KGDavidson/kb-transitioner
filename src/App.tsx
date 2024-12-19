@@ -4,7 +4,6 @@ import KeyboardLayout from "./components/KeyboardLayout/KeyboardLayout";
 import { KeyboardSelect } from "./components/KeyboardLayout/KeyboardSelect";
 import TypingBox from "./components/TypingTest/TyingBox";
 import { GenerateSentence } from "./components/TypingTest/GenerateSentence";
-import { sortUserPlugins } from "vite";
 
 function App() {
   const [sourceLayout, setSourceLayout] = useState<KBLayoutType>(
