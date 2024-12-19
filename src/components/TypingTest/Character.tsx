@@ -1,25 +1,35 @@
 type Props = {
   char: string;
+  convertedChar: string;
   userInputChar: string | null;
 };
 
-function Character({ char, userInputChar }: Props) {
-  const valid = userInputChar ? userInputChar === char : null;
-
-  if (valid == null) {
-    return (
-      <span className="m-0.5 text-zinc-400 text-center focus:blur-sm">
+function Character({ char, convertedChar, userInputChar }: Props) {
+  return (
+    <span className="inline-block">
+      <span
+        className={`m-0.5 ${
+          userInputChar == null
+            ? "text-zinc-500"
+            : userInputChar === char
+            ? "text-white"
+            : "text-rose-500"
+        } text-center focus:blur-sm block  `}
+      >
+        {convertedChar}
+      </span>
+      <span
+        className={`m-0.5 ${
+          userInputChar == null
+            ? "text-zinc-500"
+            : userInputChar === char
+            ? "text-emerald-700"
+            : "text-rose-800"
+        }  text-xs text-center focus:blur-sm block`}
+      >
         {char}
       </span>
-    );
-  }
-  if (valid) {
-    return (
-      <span className="m-0.5 text-white text-center focus:blur-sm">{char}</span>
-    );
-  }
-  return (
-    <span className="m-0.5 text-red-600 text-center focus:blur-sm">{char}</span>
+    </span>
   );
 }
 

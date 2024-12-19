@@ -1,14 +1,18 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useMemo } from "react";
 import Character from "./Character";
+import { KBLayoutType } from "../../enums/KBLayout";
 
 type Props = {
-  sentence: String;
-  userInput: String;
+  sentence: string;
+  userInput: string;
   setUserInput: Dispatch<SetStateAction<string>>;
+  sourceLayout: KBLayoutType;
+  targetLayout: KBLayoutType;
 };
 
 function TypingBox(props: Props) {
-  const { sentence, userInput, setUserInput } = props;
+  const { sentence, userInput, setUserInput, sourceLayout, targetLayout } =
+    props;
 
   function handleKeyDown(event: { key: string }) {
     console.log(event.key);
@@ -27,6 +31,30 @@ function TypingBox(props: Props) {
     }
   }
 
+  function convertString(
+    input: string,
+    source: KBLayoutType,
+    target: KBLayoutType
+  ) {
+    // Create a mapping object from source to target
+    if (source == null || target == null) return input;
+
+    const mapping: { [key: string]: string } = {};
+    for (let i = 0; i < source.length; i++) {
+      mapping[source[i]] = target[i];
+    }
+    // Convert the input string
+    return input
+      .split("")
+      .map((char: string | number) => mapping[char] || char)
+      .join("");
+  }
+
+  const convertedSentence = useMemo(
+    () => convertString(sentence, sourceLayout, targetLayout),
+    [sentence, sourceLayout, targetLayout]
+  );
+
   return (
     <div
       tabIndex={0}
@@ -35,7 +63,13 @@ function TypingBox(props: Props) {
     >
       {sentence
         ? sentence.split("").map((char, index) => {
-            return <Character char={char} userInputChar={userInput[index]} />;
+            return (
+              <Character
+                char={char}
+                convertedChar={convertedSentence[index]}
+                userInputChar={userInput[index]}
+              />
+            );
           })
         : null}
     </div>
