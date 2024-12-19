@@ -11,7 +11,7 @@ function Character({ char, convertedChar, userInputChar }: Props) {
         className={`m-0.5 ${
           userInputChar == null
             ? "text-zinc-500"
-            : userInputChar === char
+            : userInputChar === convertedChar
             ? "text-white"
             : "text-rose-500"
         } text-center focus:blur-sm block  `}
@@ -22,7 +22,7 @@ function Character({ char, convertedChar, userInputChar }: Props) {
         className={`m-0.5 ${
           userInputChar == null
             ? "text-zinc-500"
-            : userInputChar === char
+            : userInputChar === convertedChar
             ? "text-emerald-700"
             : "text-rose-800"
         }  text-xs text-center focus:blur-sm block`}
