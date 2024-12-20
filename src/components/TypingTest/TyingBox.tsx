@@ -15,16 +15,12 @@ function TypingBox(props: Props) {
     props;
 
   function handleKeyDown(event: { key: string }) {
-    console.log(event.key);
     if (event.key == "Backspace") {
       setUserInput((userInput) => {
         return userInput.slice(0, -1);
       });
     } else if (event.key == "Shift") {
-      console.log(event.key);
-    }
-    //else if (/^[A-Z]$/i.test(event.key) || event.key == " ")
-    else {
+    } else {
       setUserInput((userInput) => {
         return userInput + event.key;
       });
@@ -36,14 +32,12 @@ function TypingBox(props: Props) {
     source: KBLayoutType,
     target: KBLayoutType
   ) {
-    // Create a mapping object from source to target
     if (source == null || target == null) return input;
 
     const mapping: { [key: string]: string } = {};
     for (let i = 0; i < source.length; i++) {
       mapping[source[i]] = target[i];
     }
-    // Convert the input string
     return input
       .split("")
       .map((char: string | number) => mapping[char] || char)
