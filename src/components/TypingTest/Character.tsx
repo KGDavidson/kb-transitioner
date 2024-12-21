@@ -1,33 +1,42 @@
 type Props = {
-  char: string;
-  convertedChar: string;
+  sourceLayoutChar: string;
+  targetLayoutChar: string;
   userInputChar: string | null;
 };
 
-function Character({ char, convertedChar, userInputChar }: Props) {
+function Character({
+  sourceLayoutChar,
+  targetLayoutChar,
+  userInputChar,
+}: Props) {
+  const getCharClass = (
+    defaultClass: string,
+    matchClass: string,
+    mismatchClass: string
+  ) => {
+    if (userInputChar == null) return defaultClass;
+    return userInputChar === targetLayoutChar ? matchClass : mismatchClass;
+  };
+
   return (
     <span className="inline-block">
       <span
-        className={`m-0.5 ${
-          userInputChar == null
-            ? "text-zinc-500"
-            : userInputChar === convertedChar
-            ? "text-white"
-            : "text-rose-500"
-        } text-center focus:blur-sm block  `}
+        className={`m-0.5 ${getCharClass(
+          "text-zinc-500",
+          "text-white",
+          "text-rose-500"
+        )} text-center focus:blur-sm block`}
       >
-        {convertedChar}
+        {targetLayoutChar}
       </span>
       <span
-        className={`m-0.5 ${
-          userInputChar == null
-            ? "text-zinc-500"
-            : userInputChar === convertedChar
-            ? "text-emerald-700"
-            : "text-rose-800"
-        }  text-xs text-center focus:blur-sm block`}
+        className={`m-0.5 ${getCharClass(
+          "text-zinc-500",
+          "text-emerald-700",
+          "text-rose-800"
+        )}  text-xs text-center focus:blur-sm block`}
       >
-        {char}
+        {sourceLayoutChar}
       </span>
     </span>
   );

@@ -3,7 +3,7 @@ import { KBLayout, KBLayoutType } from "./enums/KBLayout";
 import KeyboardLayout from "./components/KeyboardLayout/KeyboardLayout";
 import { KeyboardSelect } from "./components/KeyboardLayout/KeyboardSelect";
 import TypingBox from "./components/TypingTest/TyingBox";
-import { GenerateSentence } from "./components/TypingTest/GenerateSentence";
+import quotesData from "./components/TypingTest/quotesData.json";
 
 function App() {
   const [sourceLayout, setSourceLayout] = useState<KBLayoutType>(
@@ -13,13 +13,14 @@ function App() {
     KBLayout.WORKMAN
   );
 
-  const [sentence, setSentence] = useState<string>("");
+  const [sentence, setSentence] = useState("");
 
   const [userInput, setUserInput] = useState("");
 
   const restart = async () => {
-    let x = await GenerateSentence();
-    setSentence(x);
+    var randomQuote =
+      quotesData.quotes[Math.floor(Math.random() * quotesData.quotes.length)];
+    setSentence(randomQuote.quote);
     setUserInput("");
   };
 

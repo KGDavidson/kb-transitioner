@@ -27,27 +27,16 @@ function TypingBox(props: Props) {
     }
   }
 
-  function convertString(
-    input: string,
-    source: KBLayoutType,
-    target: KBLayoutType
-  ) {
-    if (source == null || target == null) return input;
-
-    const mapping: { [key: string]: string } = {};
-    for (let i = 0; i < source.length; i++) {
-      mapping[source[i]] = target[i];
+  const mapping: { [key: string]: string } = useMemo(() => {
+    const tempMapping: { [key: string]: string } = {};
+    if (sourceLayout == null || targetLayout == null) {
+    } else {
+      for (let i = 0; i < sourceLayout.length; i++) {
+        tempMapping[sourceLayout[i]] = targetLayout[i];
+      }
     }
-    return input
-      .split("")
-      .map((char: string | number) => mapping[char] || char)
-      .join("");
-  }
-
-  const convertedSentence = useMemo(
-    () => convertString(sentence, sourceLayout, targetLayout),
-    [sentence, sourceLayout, targetLayout]
-  );
+    return tempMapping;
+  }, [sourceLayout, targetLayout]);
 
   return (
     <div
@@ -59,8 +48,8 @@ function TypingBox(props: Props) {
         ? sentence.split("").map((char, index) => {
             return (
               <Character
-                char={char}
-                convertedChar={convertedSentence[index]}
+                sourceLayoutChar={char}
+                targetLayoutChar={mapping[char] || char}
                 userInputChar={userInput[index]}
               />
             );
