@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { Dispatch, SetStateAction, useMemo, useRef } from "react";
 import Character from "./Character";
 import { KBLayoutType } from "../../enums/KBLayout";
 
@@ -14,18 +14,15 @@ function TypingBox(props: Props) {
   const { sentence, userInput, setUserInput, sourceLayout, targetLayout } =
     props;
 
-  function handleKeyDown(event: { key: string }) {
-    if (event.key == "Backspace") {
-      setUserInput((userInput) => {
-        return userInput.slice(0, -1);
-      });
-    } else if (event.key == "Shift") {
-    } else {
-      setUserInput((userInput) => {
-        return userInput + event.key;
-      });
-    }
-  }
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleContainerClick = () => {
+    inputRef.current?.focus();
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
+  };
 
   const mapping: { [key: string]: string } = useMemo(() => {
     const tempMapping: { [key: string]: string } = {};
@@ -39,11 +36,13 @@ function TypingBox(props: Props) {
   }, [sourceLayout, targetLayout]);
 
   return (
-    <div
-      tabIndex={0}
-      className="blur focus:blur-none"
-      onKeyDown={handleKeyDown}
-    >
+    <div onClick={handleContainerClick}>
+      <input
+        ref={inputRef}
+        value={userInput}
+        className="absolute opacity-0 w-0 h-0"
+        onChange={handleInputChange}
+      ></input>
       {sentence
         ? sentence.split("").map((char, index) => {
             return (
