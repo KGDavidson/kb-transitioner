@@ -25,14 +25,13 @@ function TypingBox(props: Props) {
   };
 
   const mapping: { [key: string]: string } = useMemo(() => {
-    const tempMapping: { [key: string]: string } = {};
-    if (sourceLayout == null || targetLayout == null) {
-    } else {
-      for (let i = 0; i < sourceLayout.length; i++) {
-        tempMapping[sourceLayout[i]] = targetLayout[i];
-      }
-    }
-    return tempMapping;
+    if (sourceLayout == null || targetLayout == null) return {};
+    return Object.assign(
+      {},
+      ...sourceLayout
+        .split("")
+        .map((char, index) => ({ [char]: targetLayout[index] }))
+    );
   }, [sourceLayout, targetLayout]);
 
   return (
