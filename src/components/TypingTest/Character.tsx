@@ -9,32 +9,34 @@ function Character({
   targetLayoutChar,
   userInputChar,
 }: Props) {
-  const getCharClass = (
-    defaultClass: string,
-    matchClass: string,
-    mismatchClass: string
+  const getCharClassName = (
+    defaultClassName: string,
+    matchClassName: string,
+    mismatchClassName: string
   ) => {
-    if (userInputChar == null) return defaultClass;
-    return userInputChar === targetLayoutChar ? matchClass : mismatchClass;
+    if (userInputChar == null) return defaultClassName;
+    return userInputChar === targetLayoutChar
+      ? matchClassName
+      : mismatchClassName;
   };
 
   return (
     <span className="inline-block">
       <span
-        className={`m-0.5 ${getCharClass(
+        className={`m-0.5 text-center focus:blur-sm block whitespace-pre ${getCharClassName(
           "text-zinc-500",
           "text-white",
           "text-rose-500"
-        )} text-center focus:blur-sm block`}
+        )}`}
       >
-        {targetLayoutChar}
+        {userInputChar ?? targetLayoutChar}
       </span>
       <span
-        className={`m-0.5 ${getCharClass(
+        className={`m-0.5 text-xs text-center focus:blur-sm block whitespace-pre ${getCharClassName(
           "text-zinc-500",
           "text-emerald-700",
           "text-rose-800"
-        )}  text-xs text-center focus:blur-sm block`}
+        )}`}
       >
         {sourceLayoutChar}
       </span>
