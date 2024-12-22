@@ -16,14 +16,6 @@ function TypingBox(props: Props) {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleContainerClick = () => {
-    inputRef.current?.focus();
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput(e.target.value);
-  };
-
   const mapping: { [key: string]: string } = useMemo(() => {
     if (sourceLayout == null || targetLayout == null) return {};
     return Object.assign(
@@ -35,12 +27,15 @@ function TypingBox(props: Props) {
   }, [sourceLayout, targetLayout]);
 
   return (
-    <div onClick={handleContainerClick}>
+    <div onClick={() => inputRef.current?.focus()}>
       <input
         ref={inputRef}
         value={userInput}
         className="absolute opacity-0 w-0 h-0"
-        onChange={handleInputChange}
+        onChange={(e) => {
+          setUserInput(e.target.value);
+          if (userInput.length == sentence.length) console.log("finished");
+        }}
       ></input>
       {sentence
         ? sentence.split("").map((char, index) => {
