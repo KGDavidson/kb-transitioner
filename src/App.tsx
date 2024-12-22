@@ -18,8 +18,7 @@ function App() {
   const [userInput, setUserInput] = useState("");
 
   const restart = async () => {
-    var randomQuote = quotesData[Math.floor(Math.random() * quotesData.length)];
-    setSentence(randomQuote);
+    setSentence(quotesData[Math.floor(Math.random() * quotesData.length)]);
     setUserInput("");
   };
 
