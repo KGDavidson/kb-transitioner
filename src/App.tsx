@@ -2,6 +2,8 @@ import { useState } from "react";
 import { KBLayout, KBLayoutType } from "./enums/KBLayout";
 import KeyboardLayout from "./components/KeyboardLayout/KeyboardLayout";
 import { KeyboardSelect } from "./components/KeyboardLayout/KeyboardSelect";
+import TypingBox from "./components/TypingTest/TyingBox";
+import quotesData from "./components/TypingTest/quotesData.json";
 
 function App() {
   const [sourceLayout, setSourceLayout] = useState<KBLayoutType>(
@@ -11,10 +13,29 @@ function App() {
     KBLayout.WORKMAN
   );
 
+  const [sentence, setSentence] = useState("");
+
+  const [userInput, setUserInput] = useState("");
+
+  const restart = async () => {
+    setSentence(quotesData[Math.floor(Math.random() * quotesData.length)]);
+    setUserInput("");
+  };
+
   return (
     <div className="bg-zinc-900 h-screen w-screen p-8">
-      <KeyboardSelect setLayout={setSourceLayout} />
+      <KeyboardSelect setLayout={setSourceLayout} layout={sourceLayout} />
       <KeyboardLayout layout={sourceLayout} />
+      <KeyboardSelect setLayout={setTargetLayout} layout={targetLayout} />
+      <KeyboardLayout layout={targetLayout} />
+      <TypingBox
+        sentence={sentence}
+        userInput={userInput}
+        setUserInput={setUserInput}
+        sourceLayout={sourceLayout}
+        targetLayout={targetLayout}
+      />
+      <button onClick={restart}>Restart Test</button>
     </div>
   );
 }

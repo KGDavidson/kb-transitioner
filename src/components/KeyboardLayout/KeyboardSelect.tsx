@@ -4,10 +4,11 @@ import { Dispatch, SetStateAction, useMemo } from "react";
 
 type Props = {
   setLayout: Dispatch<SetStateAction<KBLayoutType>>;
+  layout: KBLayoutType;
 };
 
 export const KeyboardSelect = (props: Props) => {
-  const { setLayout } = props;
+  const { setLayout, layout } = props;
 
   const options = useMemo(
     () =>
@@ -27,7 +28,15 @@ export const KeyboardSelect = (props: Props) => {
         option: () => "hover:!bg-zinc-600 !bg-transparent",
       }}
       options={options}
-      defaultValue={options[0]}
+      defaultValue={
+        layout
+          ? {
+              value: layout,
+              label:
+                Object.keys(KBLayout)[Object.values(KBLayout).indexOf(layout)],
+            }
+          : options[0]
+      }
       onChange={(choice) => {
         setLayout(choice?.value as KBLayout);
       }}
